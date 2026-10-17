@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lunar Detailing Lab — Wrapping, Detailing e Carrozzeria a Cortenuova (BG)</title>
+<meta name="description" content="Lunar Detailing Lab a Cortenuova (BG): car wrapping, pellicole protettive PPF, carrozzeria e riparazione ammaccature, lucidatura professionale, trattamenti nanotecnologici, detailing interni ed esterni, oscuramento vetri e fari.">
+<meta name="theme-color" content="#050507">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M20 4a12 12 0 1 0 8 21A10 10 0 0 1 20 4z' fill='%23e9ecf2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050507;
+  --bg2:#0b0c10;
+  --card:#0e1015;
+  --ink:#eceef3;
+  --muted:#8b909c;
+  --dim:#5a5f6b;
+  --line:rgba(255,255,255,.08);
+  --line2:rgba(255,255,255,.14);
+  --moon:#e9ecf2;
+  --irid:linear-gradient(90deg,#9fdcff 0%,#c3b6ff 30%,#ffcdea 55%,#ffeec2 78%,#9fdcff 100%);
+  --wa:#25d366;
+  --display:'Unbounded',system-ui,sans-serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --pad:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:#c3b6ff;color:#050507}
+.wrap{width:100%;max-width:1320px;margin:0 auto;padding:0 var(--pad)}
+.eyebrow{font-family:var(--display);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--irid)}
+.h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,5.4vw,72px);line-height:1.02;letter-spacing:-.02em}
+.irid-text{background:var(--irid);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:iridShift 8s linear infinite}
+@keyframes iridShift{to{background-position:200% 0}}
+
+/* ---------- LOADER ---------- */
+#loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;transition:transform 1s var(--ease),opacity .6s}
+#loader.done{transform:translateY(-100%)}
+.ld-box{display:flex;flex-direction:column;align-items:center;gap:22px}
+.ld-moon{width:74px;height:74px}
+.ld-moon circle{fill:none;stroke:url(#ldg);stroke-width:1.4;stroke-dasharray:240;stroke-dashoffset:240;animation:draw 1.4s var(--ease) forwards}
+.ld-moon path{fill:var(--moon);opacity:0;animation:fadeIn .8s .7s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadeIn{to{opacity:1}}
+.ld-name{font-family:var(--display);font-size:12px;letter-spacing:.5em;color:var(--muted);padding-left:.5em}
+.ld-count{font-family:var(--display);font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:transform .5s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(5,5,7,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.nav.hide{transform:translateY(-100%)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo svg{width:30px;height:30px;flex:none}
+.logo b{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.2em;display:block;line-height:1}
+.logo small{font-family:var(--display);font-size:8.5px;letter-spacing:.42em;color:var(--muted);display:block;margin-top:5px}
+.nav-links{display:flex;gap:30px;font-family:var(--display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c4c8d1}
+.nav-links a{position:relative;padding:6px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--irid);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 24px;border-radius:999px;font-family:var(--display);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;cursor:pointer;border:0;transition:transform .3s var(--ease),background .3s,color .3s,box-shadow .3s;white-space:nowrap}
+.btn-light{background:var(--moon);color:#07080b}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 10px 40px -8px rgba(195,182,255,.55)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.btn-sm{height:40px;padding:0 18px;font-size:10.5px}
+.btn svg{width:15px;height:15px}
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:none;cursor:pointer;place-items:center}
+.burger span{display:block;width:16px;height:1.5px;background:var(--ink);margin:3px auto;transition:transform .3s}
+.mnav{position:fixed;inset:0;z-index:49;background:rgba(5,5,7,.96);backdrop-filter:blur(10px);display:flex;flex-direction:column;justify-content:center;padding:0 28px;gap:6px;opacity:0;pointer-events:none;transition:opacity .4s}
+.mnav.open{opacity:1;pointer-events:auto}
+.mnav a{font-family:var(--display);font-size:clamp(28px,8vw,40px);font-weight:600;padding:8px 0;border-bottom:1px solid var(--line)}
+.mnav .btn{margin-top:28px;align-self:flex-start}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;height:190vh}
+.hero-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#ribbon{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-glow{position:absolute;width:70vmax;height:70vmax;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(160,170,220,.11),transparent 60%);pointer-events:none}
+.hero-fallback{position:absolute;inset:0;display:none;background:radial-gradient(60% 40% at 50% 50%,rgba(195,182,255,.18),transparent 70%)}
+.no-webgl .hero-fallback{display:block}
+.hero-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,9vh,96px);pointer-events:none}
+.hero-content .wrap{pointer-events:auto}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.hero-title{font-family:var(--display);font-weight:700;font-size:clamp(64px,17vw,250px);line-height:.82;letter-spacing:-.045em;margin-left:-.04em}
+.hero-title .ch{display:inline-block;opacity:0;transform:translateY(40%);filter:blur(18px)}
+.ready .hero-title .ch{animation:chIn 1.3s var(--ease) forwards;animation-delay:calc(var(--i)*.07s + .15s)}
+@keyframes chIn{to{opacity:1;transform:none;filter:blur(0)}}
+.hero-sub{font-family:var(--display);font-size:clamp(13px,1.5vw,18px);letter-spacing:.42em;text-transform:uppercase;color:#cfd3dc;margin:18px 0 0 .3em}
+.hero-side{max-width:380px;padding-bottom:10px}
+.hero-side p{color:#b4b9c4;font-size:15.5px;margin-bottom:22px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+.hero-meta{position:absolute;top:96px;left:0;right:0}
+.hero-meta .wrap{display:flex;justify-content:space-between;gap:20px}
+.hero-meta span{font-family:var(--display);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.ready .fade-up{opacity:1;transform:none}
+.ready .d1{transition-delay:.6s}.ready .d2{transition-delay:.75s}.ready .d3{transition-delay:.9s}
+.scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--display);font-size:9px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase}
+.scroll-hint i{width:1px;height:38px;background:linear-gradient(var(--moon),transparent);animation:drip 2s var(--ease) infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* ---------- PPF SWEEP ---------- */
+.ppf{position:relative;height:340vh}
+.ppf-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.6vh,28px);padding-top:64px}
+.ppf-head{position:relative;z-index:5}
+.ppf-head .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.ppf-meter{font-family:var(--display);text-align:right}
+.ppf-meter b{display:block;font-size:clamp(34px,5vw,64px);font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.ppf-meter>span{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.car-stage{position:relative;flex:none;width:min(1240px,94vw);height:clamp(240px,calc(100svh - 380px),660px);margin:0 auto;border-radius:22px;overflow:hidden;background:#000}
+.car-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.car-dull img{filter:brightness(.42) contrast(.78) saturate(.3) blur(.6px)}
+.car-dull::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.07;mix-blend-mode:soft-light}
+.car-gloss{position:absolute;inset:0;clip-path:inset(0 100% 0 0);will-change:clip-path}
+.car-gloss img{filter:contrast(1.16) saturate(1.15) brightness(1.06)}
+.car-gloss::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.22) 48%,rgba(220,235,255,.08) 52%,transparent 62%);background-size:260% 100%;background-position:var(--sheen,120%) 0;mix-blend-mode:screen}
+.film-edge{position:absolute;top:-6%;bottom:-6%;left:0;width:150px;transform:translateX(-50%);pointer-events:none;will-change:left;z-index:3}
+.film-edge::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0,rgba(255,255,255,.05) 30%,rgba(190,225,255,.35) 46%,#fff 50%,rgba(255,205,235,.35) 54%,rgba(255,255,255,.05) 70%,transparent 100%);mix-blend-mode:screen;filter:blur(.4px)}
+.film-edge::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:4px;transform:translateX(-50%);background:var(--irid);background-size:100% 300%;filter:blur(2px);opacity:.9}
+.film-sheet{position:absolute;top:0;bottom:0;left:0;right:0;background:linear-gradient(90deg,rgba(255,255,255,.035),rgba(180,200,255,.06));clip-path:inset(0 0 0 100%);pointer-events:none;mix-blend-mode:screen;z-index:2}
+.stage-badge{position:absolute;right:18px;bottom:18px;z-index:4;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:rgba(5,5,7,.55);backdrop-filter:blur(10px);border:1px solid var(--line2);font-family:var(--display);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s var(--ease)}
+.stage-badge.on{opacity:1;transform:none}
+.stage-badge i{width:8px;height:8px;border-radius:50%;background:#7dffb2;box-shadow:0 0 10px #7dffb2}
+.stage-label{position:absolute;top:16px;z-index:4;font-family:var(--display);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;padding:7px 12px;border-radius:999px;background:rgba(5,5,7,.5);border:1px solid var(--line)}
+.stage-label.l{left:16px;color:#e9ecf2}.stage-label.r{right:16px;color:var(--muted)}
+.ppf-steps{position:relative;z-index:5}
+.ppf-steps .wrap{position:relative;min-height:142px}
+.step{position:absolute;left:var(--pad);right:var(--pad);top:0;max-width:640px;opacity:0;transform:translateY(20px);filter:blur(10px);transition:opacity .7s var(--ease),transform .7s var(--ease),filter .7s var(--ease)}
+.step.on{opacity:1;transform:none;filter:blur(0)}
+.step h3{font-family:var(--display);font-weight:600;font-size:clamp(22px,2.6vw,36px);line-height:1.08;letter-spacing:-.015em;margin-bottom:10px}
+.step p{color:#b8bdc8;max-width:520px;text-shadow:0 2px 20px rgba(0,0,0,.9)}
+.step-dots{display:flex;gap:8px;margin-bottom:14px}
+.step-dots i{width:26px;height:2px;background:var(--line2);border-radius:2px;overflow:hidden;position:relative}
+.step-dots i b{position:absolute;inset:0;background:var(--moon);transform:scaleX(var(--f,0));transform-origin:left}
+
+/* ---------- MARQUEE ---------- */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:26px 0;background:var(--bg2)}
+.mq-track{display:flex;width:max-content;animation:mq 34s linear infinite}
+.mq-track span{font-family:var(--display);font-size:clamp(22px,3.4vw,44px);font-weight:500;letter-spacing:-.01em;padding:0 28px;display:flex;align-items:center;gap:56px;white-space:nowrap;color:#d9dce3}
+.mq-track span::after{content:"";width:14px;height:14px;border-radius:50%;box-shadow:inset -5px 0 0 0 var(--moon);transform:rotate(-30deg)}
+.mq-track span:nth-child(even){color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.35)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- SECTIONS ---------- */
+section.block{padding:clamp(90px,14vh,160px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:clamp(40px,7vh,80px);flex-wrap:wrap}
+.sec-head p{color:var(--muted);max-width:400px}
+.sec-head .eyebrow{margin-bottom:22px}
+
+/* split words */
+[data-split] .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+[data-split] .w>span{display:inline-block;transform:translateY(105%);filter:blur(8px);opacity:0;transition:transform 1.1s var(--ease),filter 1.1s var(--ease),opacity 1.1s;transition-delay:calc(var(--i)*.06s)}
+[data-split].in .w>span{transform:none;filter:none;opacity:1}
+[data-reveal]{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ---------- SERVICES ---------- */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc{position:relative;border-radius:20px;overflow:hidden;min-height:420px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;cursor:pointer;isolation:isolate;text-align:left}
+.svc .bg{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.svc .bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);filter:grayscale(.55) brightness(.5);transition:transform 1.2s var(--ease),filter .8s}
+.svc::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,5,7,.15) 0%,rgba(5,5,7,.55) 45%,rgba(5,5,7,.95) 100%)}
+.svc::after{content:"";position:absolute;inset:0;border-radius:20px;padding:1px;background:var(--irid);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .5s}
+.svc:hover::after,.svc:focus-visible::after{opacity:1}
+.svc:hover .bg img{transform:scale(1);filter:grayscale(0) brightness(.62)}
+.svc-num{position:absolute;top:24px;left:28px;font-family:var(--display);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.svc-arrow{position:absolute;top:20px;right:20px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:transform .5s var(--ease),background .4s,color .4s}
+.svc-arrow svg{width:16px;height:16px}
+.svc:hover .svc-arrow{background:var(--moon);color:#07080b;transform:rotate(-45deg)}
+.svc h3{font-family:var(--display);font-weight:600;font-size:clamp(20px,1.9vw,26px);line-height:1.1;margin-bottom:12px}
+.svc p{color:#aeb3be;font-size:14.5px;max-width:340px}
+.svc .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.svc .tags span{font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--line2);color:#c9cdd6}
+.svc.big{grid-column:span 2}
+.svc.wide{grid-column:span 3;min-height:340px}
+
+/* ---------- BEFORE / AFTER ---------- */
+.ba{position:relative;aspect-ratio:16/8;border-radius:22px;overflow:hidden;user-select:none;touch-action:pan-y;cursor:ew-resize;background:#000}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba-after img{filter:contrast(1.12) saturate(1.2) brightness(1.04)}
+.ba-before{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--x,50%)) 0 0)}
+.ba-before img{filter:brightness(.62) contrast(.8) saturate(.42)}
+.ba-before::after{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 62% 42%,rgba(255,255,255,.07) 0 1px,transparent 1.5px 6px),repeating-radial-gradient(circle at 22% 70%,rgba(255,255,255,.05) 0 1px,transparent 1.5px 9px);mix-blend-mode:screen}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:var(--irid);background-size:100% 300%;transform:translateX(-50%);box-shadow:0 0 20px rgba(195,182,255,.6)}
+.ba-knob{position:absolute;top:50%;left:var(--x,50%);width:58px;height:58px;border-radius:50%;transform:translate(-50%,-50%);background:rgba(5,5,7,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.4);display:grid;place-items:center}
+.ba-knob svg{width:22px;height:22px}
+.ba-tag{position:absolute;bottom:16px;font-family:var(--display);font-size:10px;letter-spacing:.22em;text-transform:uppercase;padding:8px 13px;border-radius:999px;background:rgba(5,5,7,.6);border:1px solid var(--line2)}
+.ba-tag.b{left:16px}.ba-tag.a{right:16px}
+.ba-wrap{display:grid;grid-template-columns:1fr 2.1fr;gap:clamp(30px,5vw,80px);align-items:center}
+.ba-copy p{color:var(--muted);margin:22px 0 28px}
+.checks{list-style:none;display:grid;gap:14px}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:#cdd1d9;font-size:15px}
+.checks li::before{content:"";flex:none;margin-top:7px;width:8px;height:8px;border-radius:50%;background:var(--irid)}
+
+/* ---------- GALLERY ---------- */
+.gal{position:relative}
+.gal-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.gal-track{display:flex;gap:16px;padding:0 var(--pad);will-change:transform}
+.gal-item{flex:none;width:clamp(260px,32vw,460px);aspect-ratio:3/4;border-radius:18px;overflow:hidden;position:relative;background:var(--card)}
+.gal-item:nth-child(3n+2){aspect-ratio:4/5;align-self:flex-end}
+.gal-item:nth-child(3n){aspect-ratio:1/1;align-self:center}
+.gal-item img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 1.2s var(--ease)}
+.gal-item:hover img{transform:scale(1.04)}
+.gal-item figcaption{position:absolute;left:14px;bottom:14px;font-family:var(--display);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:7px 12px;border-radius:999px;background:rgba(5,5,7,.6);backdrop-filter:blur(8px);border:1px solid var(--line)}
+.gal-head{margin-bottom:clamp(26px,5vh,50px)}
+.gal-head .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.gal-prog{width:160px;height:2px;background:var(--line2);border-radius:2px;overflow:hidden}
+.gal-prog b{display:block;height:100%;background:var(--irid);transform:scaleX(0);transform-origin:left}
+.gal-note{font-size:12px;color:var(--dim);margin-top:18px}
+
+/* ---------- PROCESS ---------- */
+.proc{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+.proc-item{padding:30px 26px 34px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.025),transparent)}
+.proc-item .n{font-family:var(--display);font-size:56px;font-weight:600;line-height:1;margin-bottom:40px;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.28)}
+.proc-item h4{font-family:var(--display);font-weight:600;font-size:18px;margin-bottom:10px}
+.proc-item p{color:var(--muted);font-size:14.5px}
+
+/* ---------- CONTACT ---------- */
+.contact{position:relative;overflow:hidden}
+.contact-moon{position:absolute;right:-18vmax;top:-10vmax;width:58vmax;height:58vmax;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(233,236,242,.11),rgba(233,236,242,.02) 55%,transparent 70%);pointer-events:none}
+.ct-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,70px)}
+.ct-title{font-family:var(--display);font-weight:700;font-size:clamp(44px,8vw,120px);line-height:.92;letter-spacing:-.035em;margin:22px 0 34px}
+.info-list{display:grid;gap:0;border-top:1px solid var(--line)}
+.info-row{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+.info-row dt{font-family:var(--display);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+.info-row dd{font-size:16px}
+.info-row dd a{border-bottom:1px solid var(--line2);transition:border-color .3s}
+.info-row dd a:hover{border-color:var(--moon)}
+.hours{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:3px 0;color:#c2c6cf}
+.hours td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.hours tr.today td{color:var(--ink);font-weight:600}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;margin-bottom:10px;padding:5px 12px;border-radius:999px;border:1px solid var(--line2)}
+.status i{width:7px;height:7px;border-radius:50%;background:#ff7a7a}
+.status.open i{background:#7dffb2;box-shadow:0 0 10px #7dffb2}
+.form{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3vw,36px);display:grid;gap:14px;align-content:start}
+.form h3{font-family:var(--display);font-weight:600;font-size:22px}
+.form>p{color:var(--muted);font-size:14.5px;margin-top:-4px;margin-bottom:6px}
+.field{display:grid;gap:7px}
+.field label{font-family:var(--display);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;background:#07080b;border:1px solid var(--line2);border-radius:12px;padding:13px 15px;font-size:15px;outline:none;transition:border-color .3s,box-shadow .3s}
+.field textarea{min-height:96px;resize:vertical}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b909c' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(195,182,255,.7);box-shadow:0 0 0 4px rgba(195,182,255,.12)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form .btn{width:100%;margin-top:6px;height:54px}
+.btn-wa{background:var(--wa);color:#06210f}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 12px 40px -10px rgba(37,211,102,.7)}
+.map{margin-top:clamp(40px,6vh,70px);border-radius:22px;overflow:hidden;border:1px solid var(--line);height:340px;position:relative}
+.map iframe{width:100%;height:100%;border:0;filter:invert(.92) hue-rotate(180deg) grayscale(.6) contrast(.9)}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line);padding:50px 0 34px}
+.ft{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+.ft-big{font-family:var(--display);font-weight:700;font-size:clamp(54px,14vw,200px);letter-spacing:-.05em;line-height:.8;margin:50px 0 30px;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.02));-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none}
+.ft small{color:var(--dim);font-size:12.5px;line-height:1.7}
+.ft-links{display:flex;gap:22px;font-family:var(--display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c4c8d1}
+.ft-links a:hover{color:#fff}
+
+/* floating WA */
+.fab{position:fixed;right:18px;bottom:18px;z-index:40;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 30px -6px rgba(37,211,102,.6);transform:scale(0);transition:transform .5s var(--ease)}
+.fab.on{transform:scale(1)}
+.fab svg{width:28px;height:28px;fill:#fff}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1020px){
+  .nav-links{display:none}
+  .burger{display:grid}
+  .nav-cta .btn-light{display:none}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .svc.big,.svc.wide,.svc-grid .svc:last-child{grid-column:span 2}
+  .ba-wrap{grid-template-columns:1fr}
+  .proc{grid-template-columns:1fr 1fr}
+  .ct-grid{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .hero{height:170vh}
+  .hero-meta{display:none}
+  .hero-top{flex-direction:column;align-items:flex-start;gap:26px}
+  .hero-sub{letter-spacing:.28em}
+  .ppf{height:300vh}
+  .hero-title{font-size:25vw}
+  .car-stage{width:92vw;height:calc(100svh - 420px);border-radius:18px}
+  .ppf-stick{gap:14px}
+  .ppf-steps .wrap{min-height:168px}
+  .car-stage img{object-position:50% 50%}
+  .ppf-head .wrap{align-items:flex-end;gap:12px}
+  .ppf-head .h2{font-size:24px!important;margin-top:10px!important}
+  .ppf-meter b{font-size:28px}
+  .ppf-meter>span{font-size:8.5px;letter-spacing:.16em;white-space:nowrap}
+  .step h3{font-size:22px}
+  .step p{font-size:14.5px}
+  .stage-label{display:none}
+  .svc-grid{grid-template-columns:1fr}
+  .svc.big,.svc.wide,.svc-grid .svc:last-child{grid-column:auto}
+  .svc{min-height:340px}
+  .ba{aspect-ratio:4/5}
+  .proc{grid-template-columns:1fr}
+  .proc-item .n{margin-bottom:20px;font-size:44px}
+  .info-row{grid-template-columns:1fr;gap:6px}
+  .f2{grid-template-columns:1fr}
+  .gal{height:auto!important}
+  .gal-stick{position:relative;height:auto;padding:90px 0}
+  .gal-track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .gal-track::-webkit-scrollbar{display:none}
+  .gal-item{width:78vw;scroll-snap-align:center}
+  .gal-prog{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="ldg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9fdcff"/><stop offset=".5" stop-color="#c3b6ff"/><stop offset="1" stop-color="#ffcdea"/></linearGradient>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#9aa0ad"/></linearGradient>
+    <symbol id="moon" viewBox="0 0 32 32"><path d="M20.5 3.2A13 13 0 1 0 29 26.6 11 11 0 0 1 20.5 3.2z" fill="url(#lg)"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.7.7 2.3.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.7-.3z"/></symbol>
+  </defs>
+</svg>
+
+<!-- LOADER -->
+<div id="loader" aria-hidden="true">
+  <div class="ld-box">
+    <svg class="ld-moon" viewBox="0 0 80 80"><circle cx="40" cy="40" r="37"/><path d="M47 14a27 27 0 1 0 19 44A22 22 0 0 1 47 14z"/></svg>
+    <div class="ld-name">LUNAR</div>
+    <div class="ld-count"><span id="ldc">0</span>%</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" aria-label="Lunar Detailing Lab — home">
+      <svg><use href="#moon"/></svg>
+      <span><b>LUNAR</b><small>DETAILING LAB</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Principale">
+      <a href="#ppf">PPF</a>
+      <a href="#servizi">Servizi</a>
+      <a href="#carrozzeria">Carrozzeria</a>
+      <a href="#lucidatura">Lucidatura</a>
+      <a href="#galleria">Galleria</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="tel:+393293661721" class="btn btn-ghost btn-sm" aria-label="Chiama">329 366 1721</a>
+      <a href="#contatti" class="btn btn-light btn-sm">Preventivo</a>
+      <button class="burger" id="burger" aria-label="Apri menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mnav" id="mnav">
+  <a href="#ppf">PPF</a>
+  <a href="#servizi">Servizi</a>
+  <a href="#carrozzeria">Carrozzeria</a>
+  <a href="#lucidatura">Lucidatura</a>
+  <a href="#galleria">Galleria</a>
+  <a href="#contatti">Contatti</a>
+  <a href="https://wa.me/393293661721" class="btn btn-wa" target="_blank" rel="noopener"><svg><use href="#wa"/></svg> Scrivici su WhatsApp</a>
+</div>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-stick">
+    <div class="hero-glow"></div>
+    <div class="hero-fallback"></div>
+    <canvas id="ribbon" aria-hidden="true"></canvas>
+    <div class="hero-meta"><div class="wrap">
+      <span class="fade-up d1">Wrapping · Detailing · Carrozzeria</span>
+      <span class="fade-up d1">Cortenuova — BG</span>
+    </div></div>
+    <div class="hero-content" id="heroContent">
+      <div class="wrap">
+        <div class="hero-top">
+          <div>
+            <h1 class="hero-title" aria-label="Lunar"><span class="ch" style="--i:0">L</span><span class="ch" style="--i:1">U</span><span class="ch" style="--i:2">N</span><span class="ch" style="--i:3">A</span><span class="ch" style="--i:4">R</span></h1>
+            <div class="hero-sub fade-up d1">Detailing Lab</div>
+          </div>
+          <div class="hero-side">
+            <p class="fade-up d2">Proteggiamo, trasformiamo e riportiamo a nuovo la tua auto. Wrapping, detailing e carrozzeria sotto lo stesso tetto: dalla pellicola alla botta da sistemare.</p>
+            <div class="hero-btns fade-up d3">
+              <a href="#contatti" class="btn btn-light">Richiedi preventivo <svg><use href="#arrow"/></svg></a>
+              <a href="#servizi" class="btn btn-ghost">Servizi</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint"><i></i>Scroll</div>
+  </div>
+</section>
+
+<!-- PPF SWEEP -->
+<section class="ppf" id="ppf">
+  <div class="ppf-stick">
+    <div class="ppf-head"><div class="wrap">
+      <div>
+        <span class="eyebrow">Paint Protection Film</span>
+        <h2 class="h2" style="margin-top:16px;font-size:clamp(26px,3.6vw,48px)">Protezione <span class="irid-text">invisibile.</span></h2>
+      </div>
+      <div class="ppf-meter"><b><span id="ppfPct">0</span>%</b><span>Superficie protetta</span></div>
+    </div></div>
+
+    <div class="car-stage" id="carStage">
+      <div class="car-dull"><img src="img/auto-profilo.jpg" alt="Auto sportiva rossa di profilo, vernice non trattata"></div>
+      <div class="car-gloss" id="carGloss"><img src="img/auto-profilo.jpg" alt="Auto sportiva rossa con pellicola protettiva applicata"></div>
+      <div class="film-sheet" id="filmSheet"></div>
+      <div class="film-edge" id="filmEdge"></div>
+      <span class="stage-label l">Con PPF</span>
+      <span class="stage-label r">Senza</span>
+      <div class="stage-badge" id="stageBadge"><i></i>Auto protetta</div>
+    </div>
+
+    <div class="ppf-steps"><div class="wrap">
+      <div class="step on" data-step="0">
+        <div class="step-dots"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+        <h3>Uno scudo che non si vede.</h3>
+        <p>Una pellicola trasparente in poliuretano che si appoggia sulla vernice originale e la tiene al riparo da sassate, graffi superficiali e agenti atmosferici.</p>
+      </div>
+      <div class="step" data-step="1">
+        <div class="step-dots"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+        <h3>Posata a mano, pannello per pannello.</h3>
+        <p>Tagliata su misura e applicata bordo dopo bordo. Su tutta l'auto o solo sulle zone più esposte: frontale, cofano, specchi, soglie.</p>
+      </div>
+      <div class="step" data-step="2">
+        <div class="step-dots"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+        <h3>La vernice resta com'è nata.</h3>
+        <p>Più brillante, protetta e pronta a durare nel tempo. Una protezione pensata per essere rimossa senza rovinare la vernice originale.</p>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span>Car Wrapping</span><span>PPF</span><span>Carrozzeria</span><span>Lucidatura</span><span>Nanotecnologia</span><span>Interni</span><span>Oscuramento</span><span>Detailing</span>
+    <span>Car Wrapping</span><span>PPF</span><span>Carrozzeria</span><span>Lucidatura</span><span>Nanotecnologia</span><span>Interni</span><span>Oscuramento</span><span>Detailing</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="block" id="servizi">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Servizi</span>
+        <h2 class="h2" data-split>Tutto quello che serve alla tua auto.</h2>
+      </div>
+      <p data-reveal>Personalizzazione, protezione e riparazione a 360°: dalla pellicola che cambia colore alla botta sul paraurti. Clicca un servizio per chiedere un preventivo.</p>
+    </div>
+
+    <div class="svc-grid">
+      <button class="svc big" data-reveal data-svc="Car Wrapping">
+        <div class="bg"><img loading="lazy" src="img/wrapping.jpg" alt=""></div>
+        <span class="svc-num">01</span><span class="svc-arrow"><svg><use href="#arrow"/></svg></span>
+        <h3>Car Wrapping</h3>
+        <p>Cambio colore totale o parziale: carrozzeria, tetto, specchi e dettagli. Finiture lucide, opache o satinate.</p>
+        <div class="tags"><span>Totale</span><span>Parziale</span><span>Opaco</span><span>Satinato</span></div>
+      </button>
+      <button class="svc" data-reveal style="--d:.08s" data-svc="PPF – Pellicola protettiva">
+        <div class="bg"><img loading="lazy" src="https://images.unsplash.com/photo-1678952967835-c0141cd511e4?auto=format&fit=crop&w=900&q=70" alt=""></div>
+        <span class="svc-num">02</span><span class="svc-arrow"><svg><use href="#arrow"/></svg></span>
+        <h3>PPF</h3>
+        <p>Pellicola trasparente contro sassate, graffi superficiali e usura della vernice originale.</p>
+      </button>
+      <button class="svc" data-reveal data-svc="Lucidatura professionale">
+        <div class="bg"><img loading="lazy" src="img/lucidatura.jpg" alt=""></div>
+        <span class="svc-num">03</span><span class="svc-arrow"><svg><use href="#arrow"/></svg></span>
+        <h3>Lucidatura professionale</h3>
+        <p>Trattamenti correttivi per eliminare aloni e micrograffi e riportare la vernice alla massima brillantezza.</p>
+      </button>
+      <button class="svc" data-reveal style="--d:.08s" data-svc="Trattamento nanotecnologico">
+        <div class="bg"><img loading="lazy" src="https://images.unsplash.com/photo-1633014041037-f5446fb4ce99?auto=format&fit=crop&w=900&q=70" alt=""></div>
+        <span class="svc-num">04</span><span class="svc-arrow"><svg><use href="#arrow"/></svg></span>
+        <h3>Trattamenti nanotecnologici</h3>
+        <p>Protettivi a lunga durata con effetto idrorepellente: acqua e sporco fanno fatica ad attaccarsi.</p>
+      </button>
+      <button class="svc" data-reveal style="--d:.16s" data-svc="Detailing interni ed esterni">
+        <div class="bg"><img loading="lazy" src="img/interni-lavaggio.jpg" alt=""></div>
+        <span class="svc-num">05</span><span class="svc-arrow"><svg><use href="#arrow"/></svg></span>
+        <h3>Detailing interni & esterni</h3>
+        <p>Lavaggio e igienizzazione profonda, materiale per materiale, dentro e fuori l'abitacolo.</p>
+      </button>
+      <button class="svc big" id="carrozzeria" data-reveal data-svc="Carrozzeria / riparazione danni">
+        <div class="bg"><img loading="lazy" src="https://images.unsplash.com/photo-1760804462351-212877c1d4e5?auto=format&fit=crop&w=1400&q=70" alt=""></div>
+        <span class="svc-num">06</span><span class="svc-arrow"><svg><use href="#arrow"/></svg></span>
+        <h3>Carrozzeria & riparazioni</h3>
+        <p>Botte, ammaccature, graffi profondi e paraurti rovinati: sistemiamo la carrozzeria e ti riconsegniamo l'auto come se non fosse successo niente.</p>
+        <div class="tags"><span>Ammaccature</span><span>Graffi</span><span>Paraurti</span><span>Verniciatura</span></div>
+      </button>
+      <button class="svc" data-reveal style="--d:.08s" data-svc="Oscuramento vetri / fari">
+        <div class="bg"><img loading="lazy" src="https://images.unsplash.com/photo-1719906238389-82415b2ff612?auto=format&fit=crop&w=1400&q=70" alt=""></div>
+        <span class="svc-num">07</span><span class="svc-arrow"><svg><use href="#arrow"/></svg></span>
+        <h3>Oscuramento vetri e fari</h3>
+        <p>Vetri oscurati e fari fumé su misura, per un look più aggressivo e più privacy a bordo.</p>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="block" id="lucidatura" style="padding-top:0">
+  <div class="wrap ba-wrap">
+    <div class="ba-copy">
+      <span class="eyebrow">Lucidatura</span>
+      <h2 class="h2" data-split style="margin-top:22px;font-size:clamp(30px,4.2vw,58px)">Prima. Dopo. Trascina.</h2>
+      <p data-reveal>La vernice perde brillantezza con lavaggi sbagliati, sole e tempo. Con una lucidatura correttiva togliamo aloni e micrograffi e la riportiamo a specchio.</p>
+      <ul class="checks" data-reveal style="--d:.1s">
+        <li>Analisi dello stato della vernice</li>
+        <li>Decontaminazione e preparazione</li>
+        <li>Correzione in più fasi</li>
+        <li>Protezione finale consigliata</li>
+      </ul>
+    </div>
+    <div class="ba" id="ba" data-reveal role="slider" aria-label="Confronto prima e dopo la lucidatura" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+      <div class="ba-after"><img loading="lazy" src="img/lucidatura.jpg" alt="Auto arancione dopo la lucidatura"></div>
+      <div class="ba-before"><img loading="lazy" src="img/lucidatura.jpg" alt="Auto arancione prima della lucidatura"></div>
+      <div class="ba-line"></div>
+      <div class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div>
+      <span class="ba-tag b">Prima</span><span class="ba-tag a">Dopo</span>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gal" id="galleria">
+  <div class="gal-stick">
+    <div class="gal-head"><div class="wrap">
+      <div>
+        <span class="eyebrow">Galleria</span>
+        <h2 class="h2" data-split style="margin-top:18px">Ogni auto, un progetto.</h2>
+      </div>
+      <div class="gal-prog"><b id="galProg"></b></div>
+    </div></div>
+    <div class="gal-track" id="galTrack">
+      <figure class="gal-item"><img loading="lazy" src="img/wrap-carbonio.jpg" alt="Applicazione pellicola effetto carbonio sul cofano"><figcaption>Cofano Carbonio</figcaption></figure>
+      <figure class="gal-item"><img loading="lazy" src="img/lucidatura.jpg" alt="Lucidatura di una sportiva arancione"><figcaption>Lucidatura</figcaption></figure>
+      <figure class="gal-item"><img loading="lazy" src="img/wrapping.jpg" alt="Wrapping grigio su berlina"><figcaption>Wrapping</figcaption></figure>
+      <figure class="gal-item"><img loading="lazy" src="img/interni-lavaggio.jpg" alt="Lavaggio sedili con estrattore"><figcaption>Igienizzazione Interni</figcaption></figure>
+      <figure class="gal-item"><img loading="lazy" src="img/auto-profilo.jpg" alt="Sportiva rossa di profilo"><figcaption>Detailing Completo</figcaption></figure>
+      <figure class="gal-item"><img loading="lazy" src="img/interni-spray.jpg" alt="Pulizia plastiche interne"><figcaption>Cura Interni</figcaption></figure>
+    </div>
+      </div>
+</section>
+
+<!-- PROCESS -->
+<section class="block" id="metodo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Il metodo</span>
+        <h2 class="h2" data-split>Dalla prima occhiata alla consegna.</h2>
+      </div>
+    </div>
+    <div class="proc">
+      <div class="proc-item" data-reveal><div class="n">01</div><h4>Consulenza</h4><p>Guardiamo l'auto insieme e scegliamo il trattamento giusto per come la usi.</p></div>
+      <div class="proc-item" data-reveal style="--d:.08s"><div class="n">02</div><h4>Preparazione</h4><p>Lavaggio, decontaminazione e, se serve, lucidatura prima di qualsiasi applicazione.</p></div>
+      <div class="proc-item" data-reveal style="--d:.16s"><div class="n">03</div><h4>Lavorazione</h4><p>Applicazione in studio, con luce e ambiente controllati, dettaglio dopo dettaglio.</p></div>
+      <div class="proc-item" data-reveal style="--d:.24s"><div class="n">04</div><h4>Consegna</h4><p>Controllo finale insieme a te e consigli per mantenere il risultato nel tempo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="block contact" id="contatti">
+  <div class="contact-moon"></div>
+  <div class="wrap">
+    <div class="ct-grid">
+      <div>
+        <span class="eyebrow">Contatti</span>
+        <h2 class="ct-title" data-split>Passa in studio.</h2>
+        <dl class="info-list" data-reveal>
+          <div class="info-row"><dt>Indirizzo</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=Via+Giosu%C3%A8+Carducci+2+24050+Cortenuova+BG" target="_blank" rel="noopener">Via Giosuè Carducci 2<br>24050 Cortenuova (BG)</a></dd></div>
+          <div class="info-row"><dt>Telefono</dt><dd><a href="tel:+393293661721">+39 329 366 1721</a> · <a href="https://wa.me/393293661721" target="_blank" rel="noopener">WhatsApp</a></dd></div>
+          <div class="info-row"><dt>Orari</dt><dd>
+            <div class="status" id="status"><i></i><span>—</span></div>
+            <table class="hours" id="hours">
+              <tr data-d="1"><td>Lunedì</td><td>9:00–12:30 · 13:30–18:00</td></tr>
+              <tr data-d="2"><td>Martedì</td><td>9:00–12:30 · 13:30–18:00</td></tr>
+              <tr data-d="3"><td>Mercoledì</td><td>9:00–12:30 · 13:30–18:00</td></tr>
+              <tr data-d="4"><td>Giovedì</td><td>9:00–12:30 · 13:30–18:00</td></tr>
+              <tr data-d="5"><td>Venerdì</td><td>9:00–12:30 · 13:30–18:00</td></tr>
+              <tr data-d="6"><td>Sabato</td><td>9:00–14:00</td></tr>
+              <tr data-d="0"><td>Domenica</td><td>Chiuso</td></tr>
+            </table>
+          </dd></div>
+          <div class="info-row"><dt>Pagamenti</dt><dd>Carte di credito, bancomat e contactless</dd></div>
+          <div class="info-row"><dt>Social</dt><dd><a href="https://www.instagram.com/lunardetailinglab/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tiktok.com/@lunardetailinglab" target="_blank" rel="noopener">TikTok</a></dd></div>
+        </dl>
+      </div>
+
+      <form class="form" id="quote" data-reveal style="--d:.1s" novalidate>
+        <h3>Richiedi un preventivo</h3>
+        <p>Compila e invia: ti si apre WhatsApp con il messaggio già pronto.</p>
+        <div class="f2">
+          <div class="field"><label for="fName">Nome</label><input id="fName" name="nome" autocomplete="given-name" placeholder="Il tuo nome"></div>
+          <div class="field"><label for="fCar">Auto</label><input id="fCar" name="auto" placeholder="Marca e modello"></div>
+        </div>
+        <div class="field"><label for="fSvc">Servizio</label>
+          <select id="fSvc" name="servizio">
+            <option>Car Wrapping</option>
+            <option>PPF – Pellicola protettiva</option>
+            <option>Lucidatura professionale</option>
+            <option>Trattamento nanotecnologico</option>
+            <option>Detailing interni ed esterni</option>
+            <option>Carrozzeria / riparazione danni</option>
+            <option>Oscuramento vetri / fari</option>
+            <option>Non so, consigliatemi voi</option>
+          </select>
+        </div>
+        <div class="field"><label for="fMsg">Dettagli</label><textarea id="fMsg" name="messaggio" placeholder="Es. PPF sul frontale, botta sulla portiera…"></textarea></div>
+        <button class="btn btn-wa" type="submit"><svg style="fill:currentColor"><use href="#wa"/></svg> Invia su WhatsApp</button>
+      </form>
+    </div>
+
+    <div class="map" data-reveal>
+      <iframe title="Mappa Lunar Detailing Lab" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Via+Giosu%C3%A8+Carducci+2,+24050+Cortenuova+BG&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <a href="#top" class="logo"><svg><use href="#moon"/></svg><span><b>LUNAR</b><small>DETAILING LAB</small></span></a>
+      <div class="ft-links"><a href="#servizi">Servizi</a><a href="#contatti">Contatti</a><a href="https://www.instagram.com/lunardetailinglab/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@lunardetailinglab" target="_blank" rel="noopener">TikTok</a></div>
+    </div>
+    <div class="ft-big" aria-hidden="true">LUNAR</div>
+    <div class="ft">
+      <small>© <span id="yr">2026</span> LUNAR S.r.l. · P.IVA 04911010165<br>Via Giosuè Carducci 2, 24050 Cortenuova (BG)</small>
+      <small>Wrapping · PPF · Carrozzeria · Lucidatura · Nanotecnologia · Detailing · Oscuramento</small>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/393293661721" class="fab" id="fab" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp"><svg><use href="#wa"/></svg></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+var WA = '393293661721';
+var clamp = function(v,a,b){return Math.max(a,Math.min(b,v));};
+var lerp = function(a,b,t){return a+(b-a)*t;};
+var vh = window.innerHeight, vw = window.innerWidth;
+var isMobile = vw < 680;
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---------- LOADER ---------- */
+var loader = document.getElementById('loader'), ldc = document.getElementById('ldc');
+var t0 = performance.now(), minDur = reduce ? 0 : 1500, loaded = false;
+window.addEventListener('load', function(){ loaded = true; });
+setTimeout(function(){ loaded = true; }, 4000);
+(function tick(){
+  var p = clamp((performance.now()-t0)/minDur, 0, 1);
+  if (!loaded) p = Math.min(p, .9);
+  ldc.textContent = Math.round(p*100);
+  if (p < 1) requestAnimationFrame(tick);
+  else { loader.classList.add('done'); document.body.classList.add('ready'); setTimeout(function(){ loader.style.display='none'; }, 1100); }
+})();
+
+/* ---------- NAV ---------- */
+var nav = document.getElementById('nav'), lastY = 0, fab = document.getElementById('fab');
+var burger = document.getElementById('burger'), mnav = document.getElementById('mnav');
+burger.addEventListener('click', function(){ mnav.classList.toggle('open'); });
+mnav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ mnav.classList.remove('open'); }); });
+
+/* ---------- SPLIT TEXT ---------- */
+document.querySelectorAll('[data-split]').forEach(function(el){
+  var words = el.textContent.trim().split(/\s+/);
+  el.innerHTML = words.map(function(w,i){ return '<span class="w"><span style="--i:'+i+'">'+w+'</span></span>'; }).join(' ');
+});
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.15, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('[data-split],[data-reveal]').forEach(function(el){ io.observe(el); });
+
+/* ---------- RIBBON (Three.js) ---------- */
+var ribbon = null;
+function initRibbon(){
+  var canvas = document.getElementById('ribbon');
+  if (!window.THREE) { document.documentElement.classList.add('no-webgl'); return; }
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true, powerPreference:'high-performance'}); }
+  catch(e){ document.documentElement.classList.add('no-webgl'); return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, isMobile ? 1.6 : 1.8));
+  renderer.setClearColor(0x000000, 0);
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
+
+  var vert = [
+    'uniform float uTime; uniform float uScroll; uniform float uPhase; uniform vec2 uMouse;',
+    'varying vec3 vWorld; varying vec2 vUv;',
+    'void main(){',
+    '  vUv = uv; vec3 p = position; float x = p.x; float t = uTime*.22 + uPhase;',
+    '  float ang = x*.42 + t*1.1 + uScroll*4.2 + uMouse.x*.6;',
+    '  float y = p.y; vec3 q = vec3(x, y*cos(ang), y*sin(ang));',
+    '  q.y += sin(x*.55 + t)*.85 + sin(x*1.25 - t*1.3)*.22 + uMouse.y*.25;',
+    '  q.z += cos(x*.42 + t*.8)*.9 - uScroll*1.5;',
+    '  q.z += sin(x*2.6 + t*2.6)*.05*y;',
+    '  vec4 w = modelMatrix*vec4(q,1.);',
+    '  vWorld = w.xyz;',
+    '  gl_Position = projectionMatrix*viewMatrix*w;',
+    '}'
+  ].join('\n');
+  var frag = [
+    'precision highp float;',
+    'uniform float uTime; uniform float uAlpha;',
+    'varying vec3 vWorld; varying vec2 vUv;',
+    'vec3 pal(float t){ return .5+.5*cos(6.28318*(t+vec3(0.,.33,.67))); }',
+    'void main(){',
+    '  vec3 n = normalize(cross(dFdx(vWorld), dFdy(vWorld)));',
+    '  vec3 v = normalize(cameraPosition - vWorld);',
+    '  float ndv = abs(dot(n,v));',
+    '  float fres = pow(1.-ndv, 2.2);',
+    '  vec3 irid = pal(ndv*1.6 + vUv.x*.7 + uTime*.025);',
+    '  vec3 l1 = normalize(vec3(.35,.9,.6)); float s1 = pow(abs(dot(n, normalize(l1+v))), 70.);',
+    '  vec3 l2 = normalize(vec3(-.7,-.2,.7)); float s2 = pow(abs(dot(n, normalize(l2+v))), 22.);',
+    '  float e = min(vUv.y, 1.-vUv.y); float rim = 1.-smoothstep(0., .045, e);',
+    '  float lines = smoothstep(.92, 1., abs(sin(vUv.y*3.14159*7.)))*.18;',
+    '  vec3 col = vec3(.88,.92,1.)*fres*.85 + irid*fres*.5 + vec3(1.)*s1*1.3 + vec3(.75,.85,1.)*s2*.35 + vec3(1.)*rim*.7 + vec3(.9)*lines*fres;',
+    '  float a = clamp(.04 + fres*.8 + s1 + rim*.55 + lines*.3, 0., 1.);',
+    '  float ends = smoothstep(0., .1, vUv.x)*smoothstep(1., .88, vUv.x);',
+    '  gl_FragColor = vec4(col, a*ends*uAlpha);',
+    '}'
+  ].join('\n');
+
+  var segX = isMobile ? 200 : 360, segY = isMobile ? 14 : 24;
+  function makeRibbon(len, width, phase, alpha){
+    var g = new THREE.PlaneGeometry(len, width, segX, segY);
+    var m = new THREE.ShaderMaterial({
+      vertexShader: vert, fragmentShader: frag,
+      uniforms: { uTime:{value:0}, uScroll:{value:0}, uPhase:{value:phase}, uMouse:{value:new THREE.Vector2()}, uAlpha:{value:alpha} },
+      transparent: true, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending,
+      extensions: { derivatives: true }
+    });
+    return new THREE.Mesh(g, m);
+  }
+  var group = new THREE.Group();
+  var r1 = makeRibbon(15, 1.7, 0, 1.0);
+  var r2 = makeRibbon(15, .55, .9, .55); r2.position.set(0, -.25, -.6);
+  group.add(r1); group.add(r2);
+  group.rotation.z = -.12;
+  scene.add(group);
+  var mats = [r1.material, r2.material];
+
+  function resize(){
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w/h;
+    camera.position.z = camera.aspect < 1 ? 10/camera.aspect*.62 : 9.5;
+    camera.position.y = camera.aspect < 1 ? -.6 : -.3;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var mouse = {x:0,y:0,tx:0,ty:0};
+  window.addEventListener('pointermove', function(e){ mouse.tx = (e.clientX/vw-.5)*2; mouse.ty = -(e.clientY/vh-.5)*2; });
+
+  var visible = true, scrollP = 0, sp = 0, start = performance.now();
+  new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }).observe(canvas);
+  function frame(){
+    requestAnimationFrame(frame);
+    if (!visible) return;
+    var t = reduce ? 4 : (performance.now()-start)/1000;
+    mouse.x = lerp(mouse.x, mouse.tx, .04); mouse.y = lerp(mouse.y, mouse.ty, .04);
+    sp = lerp(sp, scrollP, .08);
+    mats.forEach(function(m){ m.uniforms.uTime.value = t; m.uniforms.uScroll.value = sp; m.uniforms.uMouse.value.set(mouse.x, mouse.y); });
+    group.position.y = .35 + sp*1.4;
+    group.rotation.x = mouse.y*.06; group.rotation.y = mouse.x*.08;
+    renderer.render(scene, camera);
+  }
+  frame();
+  ribbon = { setScroll:function(p){ scrollP = p; } };
+}
+try { initRibbon(); } catch(e){ document.documentElement.classList.add('no-webgl'); console.warn(e); }
+
+/* ---------- SCROLL SCENES ---------- */
+var hero = document.getElementById('hero'), heroContent = document.getElementById('heroContent');
+var ppf = document.getElementById('ppf'), gloss = document.getElementById('carGloss'), edge = document.getElementById('filmEdge'), sheet = document.getElementById('filmSheet');
+var pct = document.getElementById('ppfPct'), badge = document.getElementById('stageBadge');
+var steps = [].slice.call(document.querySelectorAll('.step'));
+var gal = document.getElementById('galleria'), track = document.getElementById('galTrack'), galProg = document.getElementById('galProg');
+
+function progressOf(el){
+  var r = el.getBoundingClientRect();
+  var len = el.offsetHeight - vh;
+  return len > 0 ? clamp(-r.top/len, 0, 1) : 0;
+}
+function sizeGallery(){
+  if (vw < 680){ gal.style.height = 'auto'; return; }
+  var extra = track.scrollWidth - vw;
+  gal.style.height = (vh + Math.max(0, extra) + vh*.25) + 'px';
+}
+
+var curStep = -1;
+function onScroll(){
+  var y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 40);
+  nav.classList.toggle('hide', y > lastY && y > vh*.6 && !mnav.classList.contains('open'));
+  lastY = y;
+  fab.classList.toggle('on', y > vh*.8);
+
+  // hero
+  var hp = progressOf(hero);
+  if (ribbon) ribbon.setScroll(hp);
+  heroContent.style.opacity = 1 - clamp(hp*1.8, 0, 1);
+  heroContent.style.filter = 'blur(' + (clamp(hp*1.8,0,1)*10).toFixed(1) + 'px)';
+  heroContent.style.transform = 'translateY(' + (-hp*60) + 'px)';
+
+  // ppf sweep
+  var p = progressOf(ppf);
+  var s = clamp((p - .1)/.72, 0, 1);
+  var eased = s<.5 ? 2*s*s : 1-Math.pow(-2*s+2,2)/2;
+  var x = eased*100;
+  gloss.style.clipPath = 'inset(0 ' + (100-x).toFixed(2) + '% 0 0)';
+  sheet.style.clipPath = 'inset(0 0 0 ' + x.toFixed(2) + '%)';
+  sheet.style.opacity = s > 0 && s < 1 ? 1 : 0;
+  edge.style.left = x + '%';
+  edge.style.opacity = s > 0.002 && s < .998 ? 1 : 0;
+  gloss.style.setProperty('--sheen', (120 - clamp((p-.8)/.18,0,1)*140) + '%');
+  pct.textContent = Math.round(eased*100);
+  badge.classList.toggle('on', p > .86);
+  var idx = p < .4 ? 0 : (p < .72 ? 1 : 2);
+  if (idx !== curStep){ steps.forEach(function(st,i){ st.classList.toggle('on', i===idx); }); curStep = idx; }
+  steps[idx].querySelectorAll('.step-dots i').forEach(function(d,i){
+    var segP = clamp((p - i/3)*3, 0, 1);
+    d.querySelector('b').style.setProperty('--f', segP);
+  });
+
+  // gallery
+  if (vw >= 680){
+    var gp = progressOf(gal);
+    var extra = track.scrollWidth - vw;
+    track.style.transform = 'translateX(' + (-gp*Math.max(0,extra)) + 'px)';
+    galProg.style.transform = 'scaleX(' + gp + ')';
+  }
+}
+var ticking = false;
+window.addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ onScroll(); ticking = false; }); } }, {passive:true});
+window.addEventListener('resize', function(){ vh = window.innerHeight; vw = window.innerWidth; sizeGallery(); onScroll(); });
+sizeGallery(); onScroll();
+window.addEventListener('load', function(){ sizeGallery(); onScroll(); });
+
+/* ---------- BEFORE / AFTER ---------- */
+var ba = document.getElementById('ba'), dragging = false, touched = false;
+function setBA(clientX){
+  var r = ba.getBoundingClientRect();
+  var v = clamp((clientX - r.left)/r.width*100, 2, 98);
+  ba.style.setProperty('--x', v + '%'); ba.setAttribute('aria-valuenow', Math.round(v));
+}
+ba.addEventListener('pointerdown', function(e){ dragging = true; touched = true; setBA(e.clientX); ba.setPointerCapture(e.pointerId); });
+ba.addEventListener('pointermove', function(e){ if (dragging) setBA(e.clientX); });
+ba.addEventListener('pointerup', function(){ dragging = false; });
+ba.addEventListener('pointercancel', function(){ dragging = false; });
+ba.addEventListener('keydown', function(e){
+  var cur = parseFloat(getComputedStyle(ba).getPropertyValue('--x')) || 50;
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+    e.preventDefault(); touched = true;
+    var v = clamp(cur + (e.key === 'ArrowRight' ? 5 : -5), 2, 98);
+    ba.style.setProperty('--x', v + '%'); ba.setAttribute('aria-valuenow', Math.round(v));
+  }
+});
+// hint animation the first time it's visible
+new IntersectionObserver(function(en, obs){
+  if (!en[0].isIntersecting || reduce) return;
+  obs.disconnect();
+  var st = performance.now();
+  (function hint(){
+    if (touched) return;
+    var t = (performance.now()-st)/1800;
+    if (t > 1){ ba.style.setProperty('--x','50%'); return; }
+    ba.style.setProperty('--x', (50 + Math.sin(t*Math.PI*2)*22) + '%');
+    requestAnimationFrame(hint);
+  })();
+}, {threshold:.6}).observe(ba);
+
+/* ---------- SERVICES → FORM ---------- */
+var fSvc = document.getElementById('fSvc');
+document.querySelectorAll('[data-svc]').forEach(function(card){
+  card.addEventListener('click', function(){
+    var v = card.getAttribute('data-svc');
+    [].forEach.call(fSvc.options, function(o){ if (o.text === v) fSvc.value = o.text; });
+    document.getElementById('contatti').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+    setTimeout(function(){ document.getElementById('fName').focus({preventScroll:true}); }, 900);
+  });
+});
+document.getElementById('quote').addEventListener('submit', function(e){
+  e.preventDefault();
+  var f = e.target;
+  var lines = ['Ciao Lunar! Vorrei un preventivo.'];
+  if (f.nome.value.trim()) lines.push('Nome: ' + f.nome.value.trim());
+  if (f.auto.value.trim()) lines.push('Auto: ' + f.auto.value.trim());
+  lines.push('Servizio: ' + f.servizio.value);
+  if (f.messaggio.value.trim()) lines.push('Dettagli: ' + f.messaggio.value.trim());
+  window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+});
+
+/* ---------- OPENING HOURS (ora italiana) ---------- */
+var SCHED = {1:[[540,750],[810,1080]],2:[[540,750],[810,1080]],3:[[540,750],[810,1080]],4:[[540,750],[810,1080]],5:[[540,750],[810,1080]],6:[[540,840]],0:[]};
+var DAYS = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+function hm(m){ return Math.floor(m/60) + ':' + ('0'+(m%60)).slice(-2); }
+function romeNow(){
+  try {
+    var parts = new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+    var o = {}; parts.forEach(function(p){ o[p.type] = p.value; });
+    var map = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+    return { d: map[o.weekday], m: (parseInt(o.hour,10)%24)*60 + parseInt(o.minute,10) };
+  } catch(e){ var n = new Date(); return { d:n.getDay(), m:n.getHours()*60+n.getMinutes() }; }
+}
+function updateStatus(){
+  var now = romeNow(), el = document.getElementById('status'), txt = el.querySelector('span');
+  document.querySelectorAll('#hours tr').forEach(function(tr){ tr.classList.toggle('today', +tr.dataset.d === now.d); });
+  var today = SCHED[now.d], open = null;
+  today.forEach(function(s){ if (now.m >= s[0] && now.m < s[1]) open = s; });
+  if (open){ el.classList.add('open'); txt.textContent = 'Aperto ora · chiude alle ' + hm(open[1]); return; }
+  el.classList.remove('open');
+  for (var k = 0; k < 8; k++){
+    var d = (now.d + k) % 7, sl = SCHED[d];
+    for (var j = 0; j < sl.length; j++){
+      if (k > 0 || sl[j][0] > now.m){
+        txt.textContent = 'Chiuso · riapre ' + (k===0 ? 'oggi' : k===1 ? 'domani' : DAYS[d]) + ' alle ' + hm(sl[j][0]);
+        return;
+      }
+    }
+  }
+}
+updateStatus(); setInterval(updateStatus, 60000);
+})();
+</script>
+</body>
+</html>
